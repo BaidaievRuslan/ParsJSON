@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PLS1</title>
+    <link rel="stylesheet" href="CSS/style.css">
+  </head>
+
+  <body >
+    
+    <header>
+      PLC1
+    </header>
+
+    <section>
+      <main><div class="container">
+        <div class="content">
+          <div class="content-inner">
+            <ul id= 'myList' class="contents">
+              <li style="color:rgb(14, 13, 13); background:#9faaa4;">Аналогові входи:</li>
+            </ul>
+      </main>
+    </section>
+
+    <script>
+
+      const header = document.querySelector('header');
+      const section = document.getElementById('myList')
+      loadAIH()
+
+      function loadAIH(){        
+        var request = new XMLHttpRequest();
+        var requestURL = 'http://26.79.19.208:1880/apiv1/RT';
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+          var objJSON = request.response;
+          showJSON(objJSON);
+        }
+
+        function showJSON(jsonObj) {
+          var JSON_AI = jsonObj['PLC1']['AIH'];
+          var i =0;
+          var k = 0;
+          for(key in JSON_AI){
+            i=key;
+            k++;
+          
+            var myArticle = document.createElement('article');
+            var myLi = document.createElement('li');
+            var myA = document.createElement('a');
+
+            var STA = document.createElement('p');
+            var VALPROC = document.createElement('p');
+            var VAL = document.createElement('p');
+            var BRK = document.createElement('p');
+            var OVRLD = document.createElement('p');
+            var BAD = document.createElement('p');
+            var ALDIS = document.createElement('p');
+            var DLNK = document.createElement('p');
+            var ENBL = document.createElement('p');
+            var ALM = document.createElement('p');
+            var LOLO = document.createElement('p');
+            var LO = document.createElement('p');
+            var HI = document.createElement('p');
+            var HIHI = document.createElement('p');
+            var WRN = document.createElement('p');
+            var INBUF = document.createElement('p');
+            var FRC = document.createElement('p');
+            var SML = document.createElement('p');
+            var CMDLOAD = document.createElement('p');
+            var ID = document.createElement('p');
+            var CLSID = document.createElement('p');
+          
+            myA.id = 'AI'+k;
+            myA.textContent = k+'. '+JSON_AI[i].descr;
+          
+            STA.textContent ='STA = ' +JSON_AI[i].STA.val;
+            VALPROC.textContent ='Значення у відсотках = '+ JSON_AI[i].VALPROC.val;
+            VAL.textContent ='Маштабоване значення= '+ JSON_AI[i].VAL.val;
+            BRK.textContent = ('Активна тривога обриву (+ BAD) = ' + JSON_AI[i].BRK.val);
+            OVRLD.textContent = 'Активна тривога КЗ (+ BAD) = ' + JSON_AI[i].OVRLD.val;
+            BAD.textContent = 'Дані недостовірні = ' + JSON_AI[i].BAD.val;
+            ALDIS.textContent = 'Тривога тимчасово виведена з експлуатації = ' + JSON_AI[i].ALDIS.val;
+            DLNK.textContent = 'Якщо прив’язаний до каналу = ' + JSON_AI[i].DLNK.val;
+            ENBL.textContent = 'Змінна задіяна = (NOT PRM.7 AND DLNK) = ' + JSON_AI[i].ENBL.val;
+            ALM.textContent = 'Активна технологічна тривога і не активна BAD = ' + JSON_AI[i].ALM.val;
+            LOLO.textContent = 'Активна тривога LOLO (+ALM) = ' + JSON_AI[i].LOLO.val;
+            LO.textContent = 'Активна тривога LO (+WRN) = ' + JSON_AI[i].LO.val;
+            HI.textContent = 'Активна тривога HI (+WRN) = ' + JSON_AI[i].HI.val;
+            HIHI.textContent = 'Активна тривога HIHI (+ALM) = ' + JSON_AI[i].HIHI.val;
+            WRN.textContent = 'Активне технологічне попередження і не активні BAD та ALM = ' + JSON_AI[i].WRN.val;
+            INBUF.textContent = 'Змінна в буфері = ' + JSON_AI[i].INBUF.val;
+            FRC.textContent = 'Змінна в режимі форсування = ' + JSON_AI[i].FRC.val;
+            SML.textContent = 'Змінна в режимі симуляції = ' + JSON_AI[i].SML.val;
+            CMDLOAD.textContent = 'Команда завантаження в буфер = ' + JSON_AI[i].CMDLOAD.val;
+            ID.textContent = 'ID = ' + JSON_AI[i].ID;
+            CLSID.textContent = 'CLSID = ' + JSON_AI[i].CLSID;
+          
+          
+            myLi.appendChild(myA)
+            myArticle.appendChild(myLi);
+          
+            myArticle.appendChild(STA);
+            myArticle.appendChild(VALPROC);
+            myArticle.appendChild(VAL);
+            myArticle.appendChild(BRK);
+            myArticle.appendChild(OVRLD);
+            myArticle.appendChild(BAD);
+            myArticle.appendChild(ALDIS);
+            myArticle.appendChild(DLNK);
+            myArticle.appendChild(ENBL);
+            myArticle.appendChild(ALM);
+            myArticle.appendChild(LOLO);
+            myArticle.appendChild(LO);
+            myArticle.appendChild(HI);
+            myArticle.appendChild(HIHI);
+            myArticle.appendChild(WRN);
+            myArticle.appendChild(INBUF);
+            myArticle.appendChild(FRC);
+            myArticle.appendChild(SML);
+            myArticle.appendChild(CMDLOAD);
+            myArticle.appendChild(ID);
+            myArticle.appendChild(CLSID);
+          
+          
+            section.appendChild(myLi);
+            section.appendChild(myArticle);
+          }
+        } 
+      }
+    </script>
+  </body>
+</html>
